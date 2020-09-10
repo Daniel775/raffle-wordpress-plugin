@@ -1,0 +1,136 @@
+#raffle-container{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin: 20px;
+	border-bottom: 1px solid;
+}
+#raffle-image-container{
+	padding: 10px;
+}
+#raffle-image-container img{
+	border: 2px solid black;
+}
+#raffle-text-container{
+	padding: 10px;
+}
+#raffle-title{
+	margin: 0;
+	font-size: 2.5rem;
+	margin-bottom: .5rem;
+	font-weight: 500;
+	line-height: 1.2;
+	border-bottom: 1px solid;
+
+}
+@media only screen and (max-width: 800px){
+	#raffle-image-container{
+		width: 100%;
+	}
+	#raffle-text-container{
+		width: 100%;
+	}
+}
+@media only screen and (min-width: 801px){
+	#raffle-image-container{
+		width: 50%;
+	}
+	#raffle-text-container{
+		width: 50%;
+	}
+}
+#raffle-area-container{
+	margin: 40px;
+}
+#raffle-filters-container{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.raffle-button{
+	border-radius: 3px;
+	color: #fff;
+	padding: 5px 10px 5px 10px;
+	margin: 5px;
+	cursor:pointer;
+}
+#raffle-numbers-container{
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+}
+.raffle-number{
+	border-radius: 5px;
+	color: #fff;
+	padding: 10px 10px 10px 10px;
+	margin: 5px;
+	text-align: center;
+}
+.raffle-number.rf-avaiable{
+	cursor:pointer;
+}
+.rf-avaiable{
+	background-color: #222;
+}
+.rf-reserved{
+	background-color: #f9a443;
+}
+.rf-paid{
+	background-color: #dc3545;
+}
+#rf-search-modal{
+	display: none;
+}
+#rf-payment-modal{
+	display: none;
+}
+.modal {
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgb(0,0,0);
+	background-color: rgba(0,0,0,0.4);
+}
+.modal-content {
+	display: flex;
+	flex-direction: row;
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+}
+.rf-modal-closer {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+.rf-modal-closer:hover, .rf-modal-closer:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+#rf-email-search{
+	margin-bottom: 10px;
+}
+#rf-search-area{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+#rf-reserve-button{
+	color: #fff;
+	background-color: #81d742;
+	width: 100%;
+	padding: 10px;
+	border-radius: 3px;
+	text-align: center;
+	cursor: pointer;
+}
+#rf-register-email{
+	margin: 10px 0px 10px 0px;
+}
