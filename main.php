@@ -189,7 +189,7 @@ function update_number_data(){
 }
 
 function update_user_number_data(){
-	if ($_REQUEST['newStatus'] !== 'reserved' || strlen($_REQUEST['email']) > 60){
+	if ($_REQUEST['newStatus'] !== 'reserved' || strlen($_REQUEST['phone']) > 60){
 		exit;
 	}
 
@@ -210,7 +210,7 @@ function update_user_number_data(){
 
 	$data[$_REQUEST['selectedNumber']] = array(
 		'status' => $_REQUEST['newStatus'],
-		'user' => $_REQUEST['email'],
+		'user' => $_REQUEST['phone'],
 		'r_date' => $current_date['year'].'-'.$current_date['mon'].'-'.$current_date['mday'],
 	);
 

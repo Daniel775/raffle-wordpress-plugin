@@ -54,13 +54,13 @@ if (!$numbers_data){
 						Disponíveis
 					</div>
 					<div class="raffle-button" style="background-color: #f9a443" id="rf-filter-reserved">
-						Reservado
+						Reservados
 					</div>
-					<div class="raffle-button" style="background-color: #58b77f" id="rf-filter-my">
-						Ver meu(s) número(s)
-					</div>
-					<div class="raffle-button" style="background-color: #dc3545" id="rf-filter-paid">
+					<div class="raffle-button" style="background-color: #003334" id="rf-filter-paid">
 						Pagos
+					</div>
+					<div class="raffle-button" style="background-color: #dc3545" id="rf-filter-my">
+						Ver meu(s) número(s)
 					</div>
 					<div class="raffle-button" style="background-color: #25d366" id="rf-send-proof">
 						Enviar comprovante
@@ -86,8 +86,8 @@ if (!$numbers_data){
 			<div id="rf-search-modal" class="modal">
 			  <div class="modal-content">
 			  	<div style="width: 100%; padding: 10px;">
-			  		<p>Dígite seu email:</p>
-			  		<input type="email" name="rf-email-search" id="rf-email-search" value="">
+			  		<p>Dígite seu número de contato:</p>
+			  		<input type="text" name="rf-phone-search" id="rf-phone-search" value="">
 			  		<div style="display: none;" id="rf-search-area"></div>
 			  		<button id="rf-search-button">Buscar</button>
 			  	</div>
@@ -98,7 +98,7 @@ if (!$numbers_data){
 			  <div class="modal-content">
 			  	<div style="width: 100%; padding: 10px;">
 			  		<p style="font-size: 22px; color: #dd3333;">R$ <?=$number_price?></p>
-			  		<input type="email" name="rf-register-email" id="rf-register-email" placeholder="E-mail"
+			  		<input type="text" name="rf-register-phone" id="rf-register-phone" placeholder="Número de contato"
 			  		maxlength="60">
 			  		<div id="rf-reserve-button"><b>Reservar Número</b></div>
 			  		<p id="rf-error-area" style="color: red;"></p>

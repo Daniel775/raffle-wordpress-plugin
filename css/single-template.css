@@ -75,7 +75,7 @@
 	background-color: #f9a443;
 }
 .rf-paid{
-	background-color: #dc3545;
+	background-color: #003334;
 }
 #rf-search-modal{
 	display: none;
@@ -131,6 +131,6 @@
 	text-align: center;
 	cursor: pointer;
 }
-#rf-register-email{
+#rf-register-phone{
 	margin: 10px 0px 10px 0px;
 }

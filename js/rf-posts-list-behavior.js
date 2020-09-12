@@ -45,7 +45,6 @@ const getRFPostList = () => {
 
 			if (rfListPage == wpCustomData.max_num_pages){
 				jQuery('#rf-right-arrow').attr('disabled', 'disabled');
-				console.log(rfListPage, wpCustomData);
 			} else {
 				jQuery('#rf-right-arrow').removeAttr('disabled');
 			}

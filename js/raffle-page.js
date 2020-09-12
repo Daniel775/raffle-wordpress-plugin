@@ -17,7 +17,7 @@ jQuery(document).ready(($) => {
 	$('body').on('click', '#rf-reserve-button', e => {
 		e.preventDefault();
 
-		if (!$('#rf-register-email').val() || !wpCustomData.selectedNumber){
+		if (!$('#rf-register-phone').val() || !wpCustomData.selectedNumber){
 			return;
 		}
 
@@ -28,14 +28,14 @@ jQuery(document).ready(($) => {
 			data: {
 				action: 'update_user_data',
 				postId: wpCustomData.postId,
-				email: $('#rf-register-email').val(),
+				phone: $('#rf-register-phone').val(),
 				selectedNumber:  wpCustomData.selectedNumber,
 				newStatus: 'reserved',
 			},
 			success: (response) => {
 				const args = {
 					selected_number: wpCustomData.selectedNumber,
-					email: $('#rf-register-email').val(),
+					phone: $('#rf-register-phone').val(),
 				}
 
 				const form = $('<form></form>');
@@ -65,7 +65,7 @@ jQuery(document).ready(($) => {
 	$('body').on('click', '#rf-search-button', e => {
 		e.preventDefault();
 
-		if (!$('#rf-email-search').val()){
+		if (!$('#rf-phone-search').val()){
 			return;
 		}
 
@@ -76,7 +76,7 @@ jQuery(document).ready(($) => {
 			data: {
 				action: 'get_user_numbers',
 				postId: wpCustomData.postId,
-				user: $('#rf-email-search').val(),
+				user: $('#rf-phone-search').val(),
 			},
 			success: (response) => populateUserNumbersList($, response.data['data'])
 		});

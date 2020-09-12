@@ -77,7 +77,6 @@ jQuery(document).ready(($) => {
 			},
 			success: (response) => {
 				$('#rf-save-change').addClass('hidden');
-				console.log(response)
 			}
 		});
 	});
