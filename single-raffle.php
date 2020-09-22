@@ -56,22 +56,22 @@ if (!$numbers_data){
 					<div class="raffle-button" style="background-color: #f9a443" id="rf-filter-reserved">
 						Reservados
 					</div>
-					<div class="raffle-button" style="background-color: #003334" id="rf-filter-paid">
+					<div class="raffle-button" style="background-color: #81d742" id="rf-filter-paid">
 						Pagos
 					</div>
 					<div class="raffle-button" style="background-color: #dc3545" id="rf-filter-my">
 						Ver meu(s) número(s)
 					</div>
-					<div class="raffle-button" style="background-color: #25d366" id="rf-send-proof">
+					<div class="raffle-button" style="background-color: gray" id="rf-send-proof">
 						Enviar comprovante
 					</div>
 				</div>
 				<br/>
 				<div id="raffle-numbers-container">
 					<?php
-					$number_lenght = strlen((string)$max_number);
+					$number_lenght = strlen((string)$max_number-1);
 
-					for($i = 1; $i <= $max_number; ++$i) {
+					for($i = 0; $i <= $max_number-1; ++$i) {
 						if (!array_key_exists($i, $numbers_data) || $numbers_data[$i]['status'] == 'avaiable'){
 							$status = 'rf-avaiable';
 						} else {
