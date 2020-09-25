@@ -42,16 +42,17 @@
 #raffle-area-container{
 	margin: 40px;
 }
-#raffle-filters-container{
+.raffle-filters-container{
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 }
 .raffle-button{
+	text-align: center;
 	border-radius: 3px;
 	color: #fff;
 	padding: 5px 10px 5px 10px;
-	margin: 5px;
+	margin: 5px 0 5px 0;
 	cursor:pointer;
 }
 #raffle-numbers-container{

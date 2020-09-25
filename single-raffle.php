@@ -32,6 +32,28 @@ if (!$numbers_data){
 } else {
 	$numbers_data = $numbers_data[0];
 }
+
+$number_lenght = strlen((string)$max_number-1);
+$raffle_elements = '';
+
+$avaiable_number = 0;
+$reserved_number = 0;
+$paid_number = 0;
+
+for($i = 0; $i <= $max_number-1; ++$i) {
+	if (!array_key_exists($i, $numbers_data) || $numbers_data[$i]['status'] == 'avaiable'){
+		$status = 'rf-avaiable';
+		$avaiable_number += 1;
+	} elseif ($numbers_data[$i]['status'] == 'reserved') {
+		$status = 'rf-reserved';
+		$reserved_number += 1;
+	} else {
+		$status = 'rf-paid';
+		$paid_number += 1;
+	}
+
+	$raffle_elements = $raffle_elements.'<div class="raffle-number '.$status.'">'.sprintf("%0".$number_lenght."d", $i).'</div>';
+}
 ?>
 
 	<div id="primary" class="content-area">
@@ -46,41 +68,31 @@ if (!$numbers_data){
 				</div>
 			</div>
 			<div id="raffle-area-container">
-				<div id="raffle-filters-container">
-					<div class="raffle-button" style="background-color: #0095ff" id="rf-filter-all">
-						Todos
+				<div class="raffle-filters-container">
+					<div class="raffle-button" style="border-radius: 3px 0 0 3px; background-color: #0095ff" id="rf-filter-all">
+						Todos</br><?=$max_number?>
 					</div>
-					<div class="raffle-button" style="background-color: #222" id="rf-filter-avaiable">
-						Disponíveis
+					<div class="raffle-button" style="border-radius: 0; background-color: #222" id="rf-filter-avaiable">
+						Disponíveis</br><?=$avaiable_number?>
 					</div>
-					<div class="raffle-button" style="background-color: #f9a443" id="rf-filter-reserved">
-						Reservados
+					<div class="raffle-button" style="border-radius: 0; background-color: #f9a443" id="rf-filter-reserved">
+						Reservados</br><?=$reserved_number?>
 					</div>
-					<div class="raffle-button" style="background-color: #81d742" id="rf-filter-paid">
-						Pagos
+					<div class="raffle-button" style="border-radius: 0 3px 3px 0; background-color: #81d742" id="rf-filter-paid">
+						Pagos</br><?=$paid_number?>
 					</div>
-					<div class="raffle-button" style="background-color: #dc3545" id="rf-filter-my">
+				</div>
+				<div class="raffle-filters-container">
+					<div class="raffle-button" style="border-radius: 3px 0 0 3px; background-color: #dc3545" id="rf-filter-my">
 						Ver meu(s) número(s)
 					</div>
-					<div class="raffle-button" style="background-color: gray" id="rf-send-proof">
+					<div class="raffle-button" style="border-radius: 0 3px 3px 0; background-color: gray" id="rf-send-proof">
 						Enviar comprovante
 					</div>
 				</div>
 				<br/>
 				<div id="raffle-numbers-container">
-					<?php
-					$number_lenght = strlen((string)$max_number-1);
-
-					for($i = 0; $i <= $max_number-1; ++$i) {
-						if (!array_key_exists($i, $numbers_data) || $numbers_data[$i]['status'] == 'avaiable'){
-							$status = 'rf-avaiable';
-						} else {
-							$status = 'rf-'.$numbers_data[$i]['status'];
-						}
-
-						echo '<div class="raffle-number '.$status.'">'.sprintf("%0".$number_lenght."d", $i).'</div>';
-					}
-					?>
+					<?=$raffle_elements?>
 				</div>
 			</div>
 			<div id="rf-search-modal" class="modal">
