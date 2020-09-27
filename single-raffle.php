@@ -98,7 +98,7 @@ for($i = 0; $i <= $max_number-1; ++$i) {
 			<div id="rf-search-modal" class="modal">
 			  <div class="modal-content">
 			  	<div style="width: 100%; padding: 10px;">
-			  		<p>Dígite seu número de contato:</p>
+			  		<p>Dígite seu contato telefônico:</p>
 			  		<input type="text" name="rf-phone-search" id="rf-phone-search" value="">
 			  		<div style="display: none;" id="rf-search-area"></div>
 			  		<button id="rf-search-button">Buscar</button>
@@ -110,7 +110,7 @@ for($i = 0; $i <= $max_number-1; ++$i) {
 			  <div class="modal-content">
 			  	<div style="width: 100%; padding: 10px;">
 			  		<p style="font-size: 22px; color: #dd3333;">R$ <?=$number_price?></p>
-			  		<input type="text" name="rf-register-phone" id="rf-register-phone" placeholder="Número de contato"
+			  		<input type="text" name="rf-register-phone" id="rf-register-phone" placeholder="Contato telefônico"
 			  		maxlength="60">
 			  		<div id="rf-reserve-button"><b>Reservar Número</b></div>
 			  		<p id="rf-error-area" style="color: red;"></p>
