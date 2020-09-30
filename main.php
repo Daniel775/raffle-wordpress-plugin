@@ -97,7 +97,11 @@ function custom_metabox_field() {
 			<div id="rf-search-result" class="hidden">
 				<br/>
 				<p>Pessoa:</p>
-				<p id="rf-search-person"></p>
+				<p id="rf-search-person-name"></p>
+				<p>Contato:</p>
+				<p id="rf-search-person-phone"></p>
+				<p>Email:</p>
+				<p id="rf-search-person-email"></p>
 				<p>Estatus:</p>
 				<div style="display: flex; flex-direction: row;">
 					<select name="rf-number-status" id="rf-number-status" style="margin-right: 10px;">
@@ -174,7 +178,9 @@ function update_number_data(){
 	} else {
 		$data[$_REQUEST['selectedNumber']] = array(
 			status => $_REQUEST['newStatus'],
-			user => null,
+			user_phone => null,
+			user_name => null,
+			user_email => null,
 		);
 	}
 
@@ -189,7 +195,11 @@ function update_number_data(){
 }
 
 function update_user_number_data(){
-	if ($_REQUEST['newStatus'] !== 'reserved' || strlen($_REQUEST['phone']) > 60){
+	if ($_REQUEST['newStatus'] !== 'reserved'){
+		exit;
+	}
+
+	if (strlen($_REQUEST['phone']) > 60 || strlen($_REQUEST['name']) > 150 || strlen($_REQUEST['email']) > 60){
 		exit;
 	}
 
@@ -210,7 +220,9 @@ function update_user_number_data(){
 
 	$data[$_REQUEST['selectedNumber']] = array(
 		'status' => $_REQUEST['newStatus'],
-		'user' => $_REQUEST['phone'],
+		'user_phone' => $_REQUEST['phone'],
+		'user_name' => $_REQUEST['name'],
+		'user_email' => $_REQUEST['email'],
 		'r_date' => $current_date['year'].'-'.$current_date['mon'].'-'.$current_date['mday'],
 	);
 
@@ -253,7 +265,7 @@ function get_user_numbers(){
 	}
 
 	foreach ($result[0] as $index => $value){
-		if ($value['user'] == $_REQUEST['user']){
+		if ($value['user_phone'] == $_REQUEST['user']){
 			$user_numbers[$index] = $value;
 		}
 	}

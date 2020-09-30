@@ -41,9 +41,13 @@ $reserved_number = 0;
 $paid_number = 0;
 
 for($i = 0; $i <= $max_number-1; ++$i) {
+	$include_data = true;
+	$data = '';
+
 	if (!array_key_exists($i, $numbers_data) || $numbers_data[$i]['status'] == 'avaiable'){
 		$status = 'rf-avaiable';
 		$avaiable_number += 1;
+		$include_data = false;
 	} elseif ($numbers_data[$i]['status'] == 'reserved') {
 		$status = 'rf-reserved';
 		$reserved_number += 1;
@@ -52,7 +56,11 @@ for($i = 0; $i <= $max_number-1; ++$i) {
 		$paid_number += 1;
 	}
 
-	$raffle_elements = $raffle_elements.'<div class="raffle-number '.$status.'">'.sprintf("%0".$number_lenght."d", $i).'</div>';
+	if (is_user_logged_in() && $include_data){
+		$data = $numbers_data[$i]['user_name'].'&#10;'.$numbers_data[$i]['user_phone'].'&#10;'.$numbers_data[$i]['user_email'];
+	}
+
+	$raffle_elements = $raffle_elements.'<div data="'.$data.'" class="raffle-number '.$status.'">'.sprintf("%0".$number_lenght."d", $i).'</div>';
 }
 ?>
 
@@ -110,12 +118,23 @@ for($i = 0; $i <= $max_number-1; ++$i) {
 			  <div class="modal-content">
 			  	<div style="width: 100%; padding: 10px;">
 			  		<p style="font-size: 22px; color: #dd3333;">R$ <?=$number_price?></p>
-			  		<input type="text" name="rf-register-phone" id="rf-register-phone" placeholder="Contato telefônico"
-			  		maxlength="60">
+			  		<input type="text" name="rf-register-name" class="rf-register-inputs" placeholder="Nome completo"
+			  		maxlength="150" required>
+			  		<input type="text" name="rf-register-phone" class="rf-register-inputs" placeholder="Contato telefônico"
+			  		maxlength="60" required>
+			  		<input type="email" name="rf-register-email" class="rf-register-inputs" placeholder="Email (Opcional)"
+			  		maxlength="60" novalidate>
 			  		<div id="rf-reserve-button"><b>Reservar Número</b></div>
 			  		<p id="rf-error-area" style="color: red;"></p>
 			  	</div>
 			    <span id="close-rf-payment-modal" class="rf-modal-closer">&times;</span>
+			  </div>
+			</div>
+			<div id="raffle-data-modal" class="modal">
+			  <div class="modal-content">
+			  	<div id="raffle-data" style="width: 100%; padding: 10px;">
+			  	</div>
+			    <span id="close-rf-data-modal" class="rf-modal-closer">&times;</span>
 			  </div>
 			</div>
 		</main><!-- #main -->

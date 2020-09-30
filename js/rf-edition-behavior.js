@@ -28,7 +28,9 @@ const showSearchResult = ($, value) => {
 	}
 
 	$('#rf-search-result').removeClass('hidden');
-	$('#rf-search-person').text(value.user || '---');
+	$('#rf-search-person-name').text(value.user_name || '---');
+	$('#rf-search-person-phone').text(value.user_phone || '---');
+	$('#rf-search-person-email').text(value.user_email || '---');
 	$('#rf-number-status').val(value.status);
 	$('#rf-save-change').addClass('hidden');
 }
@@ -61,7 +63,7 @@ jQuery(document).ready(($) => {
 	$('body').on('click', '#rf-save-change', e => {
 		e.preventDefault();
 
-		if (!wpCustomData.currentNumber){
+		if (!wpCustomData.currentNumber.toString()){
 			return;
 		}
 

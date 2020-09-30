@@ -14,10 +14,32 @@ const populateUserNumbersList = ($, data) => {
 }
 
 jQuery(document).ready(($) => {
+	$('body').on('click', '.rf-reserved,.rf-paid', function(e) {
+		const data = $(this).attr('data').split('\n');
+
+		if (data.length < 2){
+			return;
+		}
+
+		$('#raffle-data').html(`
+			<h5>Nome:</h5>
+			<p>${data[0]}</p>
+			<h5>Número:</h5>
+			<p>${data[1]}</p>
+			<h5>Email:</h5>
+			<p>${data[2] || '---'}</p>
+		`);
+		$('#raffle-data-modal').show();
+	});
+
 	$('body').on('click', '#rf-reserve-button', e => {
 		e.preventDefault();
 
-		if (!$('#rf-register-phone').val() || !wpCustomData.selectedNumber){
+		if (!wpCustomData.selectedNumber){
+			return;
+		}
+
+		if (!$('input[name=rf-register-name]').val() || !$('input[name=rf-register-phone]').val()){
 			return;
 		}
 
@@ -28,14 +50,18 @@ jQuery(document).ready(($) => {
 			data: {
 				action: 'update_user_data',
 				postId: wpCustomData.postId,
-				phone: $('#rf-register-phone').val(),
+				phone: $('input[name=rf-register-phone]').val(),
+				name: $('input[name=rf-register-name]').val(),
+				email:  $('input[name=rf-register-email]').val(),
 				selectedNumber:  wpCustomData.selectedNumber,
 				newStatus: 'reserved',
 			},
 			success: (response) => {
 				const args = {
 					selected_number: wpCustomData.selectedNumber,
-					phone: $('#rf-register-phone').val(),
+					phone: $('input[name=rf-register-phone]').val(),
+					email: $('input[name=rf-register-email]').val(),
+					name: $('input[name=rf-register-name]').val(),
 				}
 
 				const form = $('<form></form>');
@@ -83,7 +109,7 @@ jQuery(document).ready(($) => {
 	});
 
 	$('.raffle-number.rf-avaiable').click(e => {
-		wpCustomData['selectedNumber'] = $(e.target).text().replace(/^0+/, '');
+		wpCustomData['selectedNumber'] = $(e.target).text().replace(/^0+/, '') || '0';
 		$('#rf-payment-modal').show();
 	});
 
@@ -127,6 +153,10 @@ jQuery(document).ready(($) => {
 	$('#close-rf-payment-modal').click(e => {
 		$('#rf-payment-modal').hide();
 		$('#rf-error-area').empty();
+	});
+
+	$('#close-rf-data-modal').click(e => {
+		$('#raffle-data-modal').hide();
 	});
 
 });
