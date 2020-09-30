@@ -66,7 +66,7 @@ jQuery(document).ready(($) => {
 
 				const form = $('<form></form>');
 				form.attr('method', 'post');
-				form.attr('action', '//' + wpCustomData.paymentPage);
+				form.attr('action', '//' + wpCustomData.reservePage);
 
 				$.each(args, function(key, value) {
 					const field = $('<input></input>');

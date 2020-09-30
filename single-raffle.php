@@ -17,6 +17,7 @@ wp_localize_script('rf-template-behaviors', 'wpCustomData', array(
 	'postId' => $post->ID,
 	'ajax_url' => admin_url('admin-ajax.php'),
 	'paymentPage' => esc_attr(get_option('raffle_payment_page_link')),
+	'reservePage' => esc_attr(get_option('raffle_reserve_page_link'))
 ));
 
 get_header();
