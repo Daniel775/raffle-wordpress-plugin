@@ -35,4 +35,3 @@ class RfLoopWidget extends WP_Widget {
 }
 
 ?>
-

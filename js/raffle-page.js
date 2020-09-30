@@ -58,10 +58,10 @@ jQuery(document).ready(($) => {
 			},
 			success: (response) => {
 				const args = {
-					selected_number: wpCustomData.selectedNumber,
-					phone: $('input[name=rf-register-phone]').val(),
-					email: $('input[name=rf-register-email]').val(),
-					name: $('input[name=rf-register-name]').val(),
+					rf_buyer_selected_number: wpCustomData.selectedNumber,
+					rf_buyer_phone: $('input[name=rf-register-phone]').val(),
+					rf_buyer_email: $('input[name=rf-register-email]').val(),
+					rf_buyer_name: $('input[name=rf-register-name]').val(),
 				}
 
 				const form = $('<form></form>');
