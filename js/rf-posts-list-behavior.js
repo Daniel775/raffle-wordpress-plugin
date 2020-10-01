@@ -16,7 +16,7 @@ const getRFPost = (data) => {
 					<p class="rf-avaiable-number">Restantes<br/>${data.total_numbers - data.reserved}</p>
 				</div>
 				<div class="rf-footer-button" style="background-color: ${active ? '#81d742' : '#dc3545'};">
-					${active ? 'COMPRAR RIFA' : 'RIFA ENCERRADA'}
+					${active ? (wpCustomData.buy_button_text || 'COMPRAR RIFA') : 'RIFA ENCERRADA'}
 				</div>
 			</div>
 		</div>
@@ -37,6 +37,8 @@ const getRFPostList = () => {
 			page: rfListPage,
 		},
 		success: (response) => {
+			wpCustomData.max_num_pages = response.data.max_num_pages;
+
 			if (rfListPage == 1){
 				jQuery('#rf-left-arrow').attr('disabled', 'disabled');
 			} else {
@@ -49,7 +51,6 @@ const getRFPostList = () => {
 				jQuery('#rf-right-arrow').removeAttr('disabled');
 			}
 
-			wpCustomData.max_num_pages = response.data.max_num_pages;
 			jQuery('#rf-content-list').empty();
 
 			if (jQuery.isEmptyObject(response.data.posts)){

@@ -11,7 +11,8 @@ class RfLoopWidget extends WP_Widget {
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('rf-posts-list-behavior', plugins_url('../js/rf-posts-list-behavior.js', __FILE__));
 		wp_localize_script('rf-posts-list-behavior', 'wpCustomData', array(
-			'ajax_url' => admin_url('admin-ajax.php')
+			'ajax_url' => admin_url('admin-ajax.php'),
+			'buy_button_text' => esc_attr(get_option('raffle_buy_button_text')),
 		));
 
 ?>
