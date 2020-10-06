@@ -67,6 +67,8 @@ wp_localize_script('rf-template-behaviors', 'wpCustomData', array(
 	'paymentPage' => esc_attr(get_option('raffle_payment_page_link')),
 	'reservePage' => esc_attr(get_option('raffle_reserve_page_link')),
 	'availableNumbers' => $available_list,
+	'price' => $number_price,
+	'selectedNumbers' => array(),
 ));
 ?>
 
@@ -104,7 +106,7 @@ wp_localize_script('rf-template-behaviors', 'wpCustomData', array(
 						Enviar comprovante
 					</div>
 					<br/>
-					<div class="raffle-button" style=" break-before: always; border-radius: 3px; background-color: #35a269;" id="rf-reserve-numbers">
+					<div class="raffle-button" style=" break-before: always; border-radius: 3px; background-color: #35a269; visibility: hidden;" id="rf-reserve-numbers">
 						Reservar números
 					</div>
 				</div>
@@ -127,13 +129,7 @@ wp_localize_script('rf-template-behaviors', 'wpCustomData', array(
 			<div id="rf-payment-modal" class="modal">
 				<div class="modal-content">
 					<div style="width: 100%; padding: 10px;">
-						<p>Selecione os números a serem reservados:</p>
-						<div style="display: flex; flex-direction: row;">
-							<input class="rf-register-inputs" type="text" name="number-selector" id="number-selector">
-							<div class="rf-register-inputs" id="rf-select-number">Selecionar</div>
-						</div>
-						<div id="rf-reserve-area" style="width: 100%;"></div>
-						<p style="font-size: 22px; color: #dd3333;">R$ <?=$number_price?></p>
+						<p id="rf-p-total" style="font-size: 22px; color: #dd3333;">R$ <?=$number_price?></p>
 						<input type="text" name="rf-register-name" class="rf-register-inputs" placeholder="Nome completo"
 						maxlength="150" required>
 						<input type="text" name="rf-register-phone" class="rf-register-inputs" placeholder="Contato telefônico"
@@ -162,7 +158,21 @@ wp_localize_script('rf-template-behaviors', 'wpCustomData', array(
 						</div>
 					</div>
 					<span id="close-rf-error-modal" class="rf-modal-closer">&times;</span>
-			  	</div>
+				</div>
+			</div>
+			<div id="bottom-modal">
+				<div id="raffle-bottom-modal">
+					<div style="width: 100%; display: flex; flex-direction: column;">
+						<div style="width: 100%; display: flex; flex-direction: column;">
+							<div id="rf-selected-grid"></div>
+							<div style="display: flex;flex-direction: row; justify-content: space-between;">
+								<p style="font-size: 20px;" id="rf-total"></p>
+								<div id="rf-finish" onclick="">✓ Concluir</div>
+							</div>
+						</div>
+					</div>
+					<span id="close-rf-bottom-modal" class="rf-modal-closer">&times;</span>
+				</div>
 			</div>
 		</main><!-- #main -->
 	</div><!-- #primary -->

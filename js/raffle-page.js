@@ -46,6 +46,17 @@ const populateUserNumbersList = ($, data) => {
 	$('#rf-search-area').show();
 }
 
+const getTotal = () => {
+	const selected = wpCustomData.selectedNumbers.length;
+	const total = Number(wpCustomData.price.replace(/[^0-9,]+/g, '').replace(',', '.')) * selected;
+	return total.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'});
+}
+
+const updateTotal = () => {
+	const text = `${wpCustomData.selectedNumbers.length}x${wpCustomData.price} = R$ ${getTotal()}`;
+	jQuery('#rf-total').text(text);
+}
+
 jQuery(document).ready(($) => {
 	$('body').on('click', '.rf-reserved,.rf-paid', function(e) {
 		const data = $(this).attr('data');
@@ -92,7 +103,7 @@ jQuery(document).ready(($) => {
 					const alreadyReserved = response.data.alreadyReserved.join(', ');
 					const reserved = response.data.reserved.join(', ');
 
-					let message = `<p>Não é possível reservar os seguintes números:</p>
+					let message = `<p>Os seguintes números já estavam reservados:</p>
 						<p style="color: red;">${alreadyReserved}</p>`;
 
 					if (reserved){
@@ -118,8 +129,10 @@ jQuery(document).ready(($) => {
 		});
 	});
 
-	$('body').on('click', '#rf-select-number', e => {
-		const selectedNumber = parseInt($('#number-selector').val())
+	$('body').on('click', '.rf-available', function(e) {
+		$('#bottom-modal').show();
+		const raffleText = $(this).text();
+		const selectedNumber = parseInt(raffleText);
 
 		if (wpCustomData.availableNumbers.indexOf(selectedNumber) < 0){
 			$('#number-selector').val('');
@@ -130,12 +143,15 @@ jQuery(document).ready(($) => {
 			$('#number-selector').val('');
 			return;
 		}
+		$('#rf-reserve-numbers').css('visibility', 'initial');
 
-		$('#rf-reserve-area').append(
-			`<div class="raffle-number rf-available">${selectedNumber}<span class="rf-remove-number">&times;</span></div>`
+		$('#rf-selected-grid').append(
+			`<div class="raffle-number rf-s-available">${raffleText}<span class="rf-remove-number">&times;</span></div>`
 		);
+
 		$('#number-selector').val('');
 		wpCustomData.selectedNumbers.push(selectedNumber);
+		updateTotal();
 	});
 
 	$('body').on('click', '#rf-search-button', e => {
@@ -162,11 +178,12 @@ jQuery(document).ready(($) => {
 		const number = parseInt($(this).parent().text());
 		wpCustomData.selectedNumbers = wpCustomData.selectedNumbers.filter(e => e !== number);
 		$(this).parent().remove();
+		updateTotal();
 	});
 
-	$('#rf-reserve-numbers').click(e => {
-		wpCustomData.selectedNumbers = []
-		$('#rf-reserve-area').empty();
+	$('#rf-finish, #rf-reserve-numbers').click(e => {
+		$('#bottom-modal').hide();
+		$('#rf-p-total').text(getTotal());
 		$('#rf-payment-modal').show();
 	});
 
@@ -224,6 +241,10 @@ jQuery(document).ready(($) => {
 
 	$('#close-rf-error-modal').click(e => {
 		$('#raffle-error-modal').hide();
+	});
+
+	$('#close-rf-bottom-modal').click(e => {
+		$('#bottom-modal').hide();
 	});
 
 });
