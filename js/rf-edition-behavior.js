@@ -22,7 +22,7 @@ const showSearchResult = ($, value) => {
 	if (value === null){
 		$('#rf-search-result').removeClass('hidden');
 		$('#rf-search-person').text('---');
-		$('#rf-number-status').val('avaiable');
+		$('#rf-number-status').val('available');
 		$('#rf-save-change').addClass('hidden');
 		return;
 	}

@@ -105,7 +105,7 @@ function custom_metabox_field() {
 				<p>Estatus:</p>
 				<div style="display: flex; flex-direction: row;">
 					<select name="rf-number-status" id="rf-number-status" style="margin-right: 10px;">
-						<option value="avaiable">Disponível</option>
+						<option value="available">Disponível</option>
 						<option value="reserved">Pendente</option>
 						<option value="paid">Pago</option>
 					</select>
@@ -204,6 +204,8 @@ function update_user_number_data(){
 	}
 
 	$data = get_post_meta($_REQUEST['postId'], 'numbers_data');
+	$already_reserved = array();
+	$reserved = array();
 
 	if (!$data){
 		$data = array();
@@ -211,23 +213,30 @@ function update_user_number_data(){
 		$data = $data[0];
 	}
 
-	if (array_key_exists($_REQUEST['selectedNumber'], $data) && $_REQUEST['newStatus'] == $data[$_REQUEST['selectedNumber']]['status']){
-		wp_send_json_error(array('Erro' => 'Número já reservado, recarregue a página e tente novamente.'), 401);
-		exit;
+	foreach ($_REQUEST['selectedNumbers'] as $item) {
+		if (array_key_exists($item, $data) && $_REQUEST['newStatus'] == $data[$item]['status']){
+			$already_reserved[] = $item;
+			continue;
+		}
+
+		$current_date = getdate();
+
+		$data[$item] = array(
+			'status' => $_REQUEST['newStatus'],
+			'user_phone' => $_REQUEST['phone'],
+			'user_name' => $_REQUEST['name'],
+			'user_email' => $_REQUEST['email'],
+			'r_date' => $current_date['year'].'-'.$current_date['mon'].'-'.$current_date['mday'],
+		);
+		$reserved[] = $item;
 	}
 
-	$current_date = getdate();
+	update_post_meta($_REQUEST['postId'], 'numbers_data', $data);
 
-	$data[$_REQUEST['selectedNumber']] = array(
-		'status' => $_REQUEST['newStatus'],
-		'user_phone' => $_REQUEST['phone'],
-		'user_name' => $_REQUEST['name'],
-		'user_email' => $_REQUEST['email'],
-		'r_date' => $current_date['year'].'-'.$current_date['mon'].'-'.$current_date['mday'],
-	);
-
-	$result = update_post_meta($_REQUEST['postId'], 'numbers_data', $data);
-	wp_send_json_success(array('data' => $data[$_REQUEST['selectedNumber']]));
+	wp_send_json_success(array(
+		'reserved' => $reserved,
+		'alreadyReserved' => $already_reserved,
+	));
 	exit;
 }
 
@@ -294,7 +303,7 @@ function get_rf_post_list(){
 		$reserved = 0;
 
 		foreach ($numbers_data as $key => $value) {
-			if ($value['status'] !== 'avaiable'){
+			if ($value['status'] !== 'available'){
 				$reserved += 1;
 			}
 		}

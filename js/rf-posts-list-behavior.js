@@ -13,7 +13,7 @@ const getRFPost = (data) => {
 				<div class="rf-post-footer">
 					<p class="rf-total-number">Números<br/>${data.total_numbers}</p>
 					<p class="rf-reserved-number">Reservados<br/>${data.reserved}</p>
-					<p class="rf-avaiable-number">Restantes<br/>${data.total_numbers - data.reserved}</p>
+					<p class="rf-available-number">Restantes<br/>${data.total_numbers - data.reserved}</p>
 				</div>
 				<div class="rf-footer-button" style="background-color: ${active ? '#81d742' : '#dc3545'};">
 					${active ? (wpCustomData.buy_button_text || 'COMPRAR RIFA') : 'RIFA ENCERRADA'}
