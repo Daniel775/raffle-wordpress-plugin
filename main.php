@@ -301,10 +301,13 @@ function get_rf_post_list(){
 		$numbers_data = get_post_meta(get_the_ID(), 'numbers_data');
 		$numbers_data = !$numbers_data ? array() : $numbers_data[0];
 		$reserved = 0;
+		$paid = 0;
 
 		foreach ($numbers_data as $key => $value) {
-			if ($value['status'] !== 'available'){
+			if ($value['status'] === 'reserved'){
 				$reserved += 1;
+			} elseif ($value['status'] === 'paid'){
+				$paid += 1;
 			}
 		}
 
@@ -314,6 +317,7 @@ function get_rf_post_list(){
 			'price' => isset($meta_data['number_price']) ? esc_attr($meta_data['number_price'][0]) : '',
 			'total_numbers' => isset($meta_data['max_number']) ? esc_attr($meta_data['max_number'][0]) : '0',
 			'reserved' => $reserved,
+			'paid' => $paid,
 			'status' => isset($meta_data['status']) ? esc_attr($meta_data['status'][0]) : 'active',
 			'permalink' => get_the_permalink(),
 		);

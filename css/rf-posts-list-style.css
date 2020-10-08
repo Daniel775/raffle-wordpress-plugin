@@ -128,12 +128,12 @@
 	font-size: 22px;
 	color: #343a40;
 }
-.rf-total-number{
+.rf-paid-number{
 	color: #28a745 !important;
 }
 .rf-reserved-number{
 	color: #ffc107 !important;
 }
 .rf-available-number{
-	color: #dc3545 !important;
+	color: #222 !important;
 }
